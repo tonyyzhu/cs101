@@ -5,12 +5,3 @@
 # ALL solutions must be clearly documented
 # ALL solutions must actually work
 # ONLY use concepts covered in the class so far
-
-def hash_string(keyword,buckets):
-    i = 0
-    j = 0
-    while i<len(keyword):
-        j= j + ord(keyword[i])
-        i = i + 1
-    return (j % buckets)
-
