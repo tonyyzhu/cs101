@@ -8,12 +8,12 @@
 
 # my original solution
 # def hash_string(keyword,buckets):
-    i = 0
-    j = 0
-    while i<len(keyword):
-        j= j + ord(keyword[i])
-        i = i + 1
-    return (j % buckets)
+ #   i = 0
+ #   j = 0
+ #   while i<len(keyword):
+ #       j= j + ord(keyword[i])
+ #       i = i + 1
+ #   return (j % buckets)
 
 
 # I don't understand the way this for loop works - it is add sum of modulus together
