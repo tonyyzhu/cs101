@@ -1,24 +1,25 @@
-# Modify the crawl_web procedure so that instead of just returning the 
-# index, it returns an index and a graph. The graph should be a 
+# Modify the crawl_web procedure so that instead of just returning the
+# index, it returns an index and a graph. The graph should be a
 # Dictionary where the key:value entries are:
 
-#  url: [list of pages url links to] 
+#  url: [list of pages url links to]
 
 
 def crawl_web(seed): # returns index, graph of outlinks
     tocrawl = [seed]
     crawled = []
     graph = {}  # <url>:[list of pages it links to]
-    index = {} 
-    while tocrawl: 
+    index = {}
+    while tocrawl:
         page = tocrawl.pop()
         if page not in crawled:
             content = get_page(page)
             add_page_to_index(index, page, content)
             outlinks = get_all_links(content)
-            
+
             #Insert Code Here
-            
+            graph[page] =  outlinks
+
             union(tocrawl, outlinks)
             crawled.append(page)
     return index, graph
@@ -36,8 +37,8 @@ Here are my favorite recipies:
 <li> <a href="http://udacity.com/cs101x/urank/kathleen.html">Kathleen's Hummus Recipe</a>
 </ul>
 
-For more expert opinions, check out the 
-<a href="http://udacity.com/cs101x/urank/nickel.html">Nickel Chef</a> 
+For more expert opinions, check out the
+<a href="http://udacity.com/cs101x/urank/nickel.html">Nickel Chef</a>
 and <a href="http://udacity.com/cs101x/urank/zinc.html">Zinc Chef</a>.
 </body>
 </html>
@@ -47,16 +48,16 @@ and <a href="http://udacity.com/cs101x/urank/zinc.html">Zinc Chef</a>.
 
 
 
-""", 
+""",
    'http://udacity.com/cs101x/urank/zinc.html': """<html>
 <body>
 <h1>The Zinc Chef</h1>
 <p>
-I learned everything I know from 
+I learned everything I know from
 <a href="http://udacity.com/cs101x/urank/nickel.html">the Nickel Chef</a>.
 </p>
 <p>
-For great hummus, try 
+For great hummus, try
 <a href="http://udacity.com/cs101x/urank/arsenic.html">this recipe</a>.
 
 </body>
@@ -67,7 +68,7 @@ For great hummus, try
 
 
 
-""", 
+""",
    'http://udacity.com/cs101x/urank/nickel.html': """<html>
 <body>
 <h1>The Nickel Chef</h1>
@@ -85,7 +86,7 @@ best Hummus recipe!
 
 
 
-""", 
+""",
    'http://udacity.com/cs101x/urank/kathleen.html': """<html>
 <body>
 <h1>
@@ -104,7 +105,7 @@ Kathleen's Hummus Recipe
 </body>
 </html>
 
-""", 
+""",
    'http://udacity.com/cs101x/urank/arsenic.html': """<html>
 <body>
 <h1>
@@ -120,7 +121,7 @@ The Arsenic Chef's World Famous Hummus Recipe
 </body>
 </html>
 
-""", 
+""",
    'http://udacity.com/cs101x/urank/hummus.html': """<html>
 <body>
 <h1>
@@ -139,7 +140,7 @@ Hummus Recipe
 
 
 
-""", 
+""",
 }
 
 def get_page(url):
@@ -147,10 +148,10 @@ def get_page(url):
         return cache[url]
     else:
         return None
-    
+
 def get_next_target(page):
     start_link = page.find('<a href=')
-    if start_link == -1: 
+    if start_link == -1:
         return None, 0
     start_quote = page.find('"', start_link)
     end_quote = page.find('"', start_quote + 1)
@@ -178,7 +179,7 @@ def add_page_to_index(index, url, content):
     words = content.split()
     for word in words:
         add_to_index(index, word, url)
-        
+
 def add_to_index(index, keyword, url):
     if keyword in index:
         index[keyword].append(url)
@@ -193,7 +194,7 @@ def lookup(index, keyword):
 
 
 
-index , graph = crawl_web('http://udacity.com/cs101x/urank/index.html') 
+index , graph = crawl_web('http://udacity.com/cs101x/urank/index.html')
 
 if 'http://udacity.com/cs101x/urank/index.html' in graph:
     print graph['http://udacity.com/cs101x/urank/index.html']
