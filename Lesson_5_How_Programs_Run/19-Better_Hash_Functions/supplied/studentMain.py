@@ -5,13 +5,7 @@
 # the bucket for that keyword.
 
 
-def hash_string(keyword,buckets):
-    i = 0
-    j = 0
-    while i<len(keyword):
-        j= j + ord(keyword[i])
-        i = i + 1
-    return (j % buckets)
+
 
 
 

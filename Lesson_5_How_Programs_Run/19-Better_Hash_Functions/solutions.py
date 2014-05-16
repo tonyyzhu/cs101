@@ -44,3 +44,11 @@ print 100 % 6
 
 print ((((((((((((((((20 % 6) + 10) % 6  + 10) % 6 )  + 10) % 6 ) + 10) % 6 )  + 10) % 6 ) + 10) % 6 ) + 10) % 6 ) + 10) % 6 ) % 6
 
+# Originally put into Student Main
+def hash_string(keyword,buckets):
+    i = 0
+    j = 0
+    while i<len(keyword):
+        j= j + ord(keyword[i])
+        i = i + 1
+    return (j % buckets)
